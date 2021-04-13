@@ -1,0 +1,13 @@
+package Servicos;
+
+import Modelos.Pessoa;
+
+public class Principal {
+	public static void main(String[] args) {
+		Pessoa marcella = new Pessoa("","","","");
+		
+		
+		System.out.println("Nome do usuário é:" +marcella.getNome());
+		
+	}
+}

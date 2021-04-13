@@ -1,0 +1,85 @@
+package Modelos;
+
+import java.util.Date;
+
+public class Pagamento {
+	private double ValorCobranca;
+	private Conta Conta;
+	private Date DataPagamento;
+	private Date Vencimento;
+	private double Taxa;
+
+	public Pagamento(double valorCobranca, Conta conta, Date dataPagamento, Date vencimento, double taxa) {
+		ValorCobranca = valorCobranca;
+		Conta = conta;
+		DataPagamento = dataPagamento;
+		Vencimento = vencimento;
+		Taxa = taxa;
+	}
+
+	public double getValorCobranca() {
+		return ValorCobranca;
+	}
+
+	public void setValorCobranca(double valorCobranca) {
+		ValorCobranca = valorCobranca;
+	}
+
+	public Conta getSaldoConta() {
+		return Conta;
+	}
+
+	public void setSaldoConta(Conta conta) {
+		Conta = conta;
+	}
+
+	public Date getDataPagamento() {
+		return DataPagamento;
+	}
+
+	public void setDataPagamento(Date dataPagamento) {
+		DataPagamento = dataPagamento;
+	}
+
+	public Date getVencimento() {
+		return Vencimento;
+	}
+
+	public void setVencimento(Date vencimento) {
+		Vencimento = vencimento;
+	}
+
+	public double getTaxa() {
+		return Taxa;
+	}
+
+	public void setTaxa(double taxa) {
+		Taxa = taxa;
+	}
+	
+	public String efetuarPagamento() {
+		double saldoAtualizado;
+				
+		if (this.DataPagamento.before(this.Vencimento)) {
+			int qtdDiasDiferenca = this.DataPagamento.compareTo(this.Vencimento);
+			double valorCobrancaFinal = this.ValorCobranca + (qtdDiasDiferenca * this.Taxa);
+			
+			if (this.Conta.getSaldo() < valorCobrancaFinal) {
+				return "Saldo insuficiente"; 
+			}
+			else {
+				saldoAtualizado = this.Conta.getSaldo() - valorCobrancaFinal;
+				this.Conta.setSaldo(saldoAtualizado);
+			}
+		} else {
+			if (this.Conta.getSaldo() < this.ValorCobranca) {
+				return "Saldo insuficiente";
+			}else {
+				saldoAtualizado = this.Conta.getSaldo() - this.ValorCobranca;
+				this.Conta.setSaldo(saldoAtualizado);
+			}
+		}		
+		
+		return "Pagamento efetuado com sucesso. Saldo atual: " + this.Conta.getSaldo();
+	}
+}

@@ -1,0 +1,48 @@
+package Modelos;
+
+import java.util.List;
+
+public class Cliente extends Pessoa {
+	private int Agencia;
+	private Conta Conta;
+	private List<String> Cartoes; 
+
+	
+	public Cliente(String nome, String CPF, String telefone, Endereco endereco, String email, int agencia, Conta conta, List<String> cartoes) {
+		super(nome, CPF, telefone, endereco, email);
+		Agencia = agencia;
+		Conta = conta;
+		Cartoes = cartoes;				
+	}
+
+
+	public int getAgencia() {
+		return Agencia;
+	}
+
+
+	public void setAgencia(int agencia) {
+		Agencia = agencia;
+	}
+
+
+	public Conta getConta() {
+		return Conta;
+	}
+
+
+	public void setConta(Conta conta) {
+		Conta = conta;
+	}
+
+
+	public List<String> getCartoes() {
+		return Cartoes;
+	}
+
+
+	public void setCartoes(List<String> cartoes) {
+		Cartoes = cartoes;
+	}
+	
+}

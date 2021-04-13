@@ -1,0 +1,35 @@
+package Servicos;
+
+import java.util.Scanner;
+
+public class Principal {
+	public static void main(String[] args) {
+		Scanner leitor = new Scanner(System.in);
+		String opcao; 
+		/*
+				
+		System.out.println("Digite o nome do cliente:");
+		String nomeCliente = leitor.next();			
+		System.out.println("Nome cliente é: " +nomeCliente);
+						
+		*/
+		
+		do {			
+			DefinirMenu();
+			opcao = leitor.next();
+			
+			
+			
+		} while(!opcao.equals("0"));
+		
+		System.out.println("Programa finalizado com sucesso.");
+		leitor.close();	
+		
+	}
+	
+	public static void DefinirMenu() {
+		System.out.println("Selecione a opção que deseja:\n");
+		System.out.println("1-Definir Dados Do cliente");	
+		System.out.println("0-Sair");	
+	}
+}
