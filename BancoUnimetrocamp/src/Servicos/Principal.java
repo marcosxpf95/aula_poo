@@ -6,10 +6,12 @@ import Modelos.Cliente;
 import Modelos.Conta;
 import Modelos.Endereco;
 import Modelos.Pagamento;
+import Storage.ClienteStorage;
 
 public class Principal {
 	public static void main(String[] args) {			
-		Cliente cliente = null;
+		ClienteStorage clienteStorage = new ClienteStorage();
+		Cliente cliente = clienteStorage.getClienteStoraged();
 		Conta conta = null;
 		Cartao cartao = null;
 		Pagamento pagamento = null;
@@ -24,13 +26,17 @@ public class Principal {
 			
 			switch(opcao) {
 				case "1":{
-					conta = CadastrarConta(leitor);
-					cartao = CadastrarCartao(leitor);
-					cliente = CadastrarCliente(leitor, conta, cartao);
+					if (cliente == null){
+						conta = CadastrarConta(leitor);
+						cartao = CadastrarCartao(leitor);
+						cliente = CadastrarCliente(leitor, conta, cartao);
+					}
+					break;
 				}
 				case "2":{
-					pagamento = CadastrarPagamento(leitor, conta);
+					pagamento = CadastrarPagamento(leitor, cliente.getConta());
 					System.out.println(pagamento.efetuarPagamento());
+					break;
 				}
 			}
 								
@@ -42,6 +48,7 @@ public class Principal {
 	}
 
 	public static void DefinirOpcoesMenu() {
+		System.out.println("------");
 		System.out.println("Selecione a opção que deseja:\n");
 		System.out.println("1-Definir Dados Do cliente");
 		System.out.println("2-Efetuar pagamento");
@@ -76,10 +83,17 @@ public class Principal {
 		System.out.println("Agencia: ");
 		int agencia = leitor.nextInt();
 		
+		
 		Endereco endereco = new Endereco(pais, estado, cidade, bairro, rua, numero, cep);
 		
-		Cliente cliente = new Cliente(nome, cpf, telefone, endereco, email, agencia, conta, cartao);		
+		Cliente cliente = new Cliente(nome, cpf, telefone, endereco, email, agencia, conta, cartao);
 		
+		
+		if (cliente != null) {
+			ClienteStorage clienteStorage = new ClienteStorage();
+			clienteStorage.Gravar(cliente);
+			clienteStorage.Ler();
+		}
 		return cliente; 
 	}
 	
@@ -124,5 +138,5 @@ public class Principal {
 		Pagamento pagamento = new Pagamento(valorCobranca, conta, dataPagamento, dataVencimento, taxa);
 		
 		return pagamento;
-	}
+	} 
 }
