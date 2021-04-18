@@ -1,4 +1,5 @@
 package Modelos;
+
 import java.util.Date;
 
 public class Transferencia {
@@ -8,9 +9,9 @@ public class Transferencia {
 	private Conta ContaOrigem;
 	private Cliente ClienteBeneficiado;
 	private char Tipo;
-	
+
 	public Transferencia(double valor, Date dataProcesso, Date dataExecucao, Conta contaOrigem,
-			Cliente clienteBeneficiado, char tipo) {		
+			Cliente clienteBeneficiado, char tipo) {
 		Valor = valor;
 		DataProcesso = dataProcesso;
 		DataExecucao = dataExecucao;
@@ -65,5 +66,5 @@ public class Transferencia {
 
 	public void setTipo(char tipo) {
 		Tipo = tipo;
-	}	
+	}
 }

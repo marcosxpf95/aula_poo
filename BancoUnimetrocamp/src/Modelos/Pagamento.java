@@ -56,30 +56,52 @@ public class Pagamento {
 	public void setTaxa(double taxa) {
 		Taxa = taxa;
 	}
-	
+
 	public String efetuarPagamento() {
 		double saldoAtualizado;
-				
+
 		if (this.DataPagamento.before(this.Vencimento)) {
 			int qtdDiasDiferenca = this.DataPagamento.compareTo(this.Vencimento);
 			double valorCobrancaFinal = this.ValorCobranca + (qtdDiasDiferenca * this.Taxa);
-			
+			double saldoComChequeEspecial = this.Conta.getSaldo() + this.Conta.getChequeEspecial();
+
 			if (this.Conta.getSaldo() < valorCobrancaFinal) {
-				return "Saldo insuficiente"; 
-			}
-			else {
+				if (saldoComChequeEspecial < valorCobrancaFinal) {
+					return "Saldo insuficiente";
+				} else {
+					double valorDebitadoSaldo = this.Conta.getSaldo();
+					double valorRestanteCobranca = valorCobrancaFinal - valorDebitadoSaldo;
+					double valorRestanteChequeEspecial = this.Conta.getChequeEspecial() - valorRestanteCobranca;
+
+					this.Conta.setSaldo(0);
+					this.Conta.setChequeEspecial(valorRestanteChequeEspecial);
+				}
+
+			} else {
 				saldoAtualizado = this.Conta.getSaldo() - valorCobrancaFinal;
 				this.Conta.setSaldo(saldoAtualizado);
 			}
 		} else {
 			if (this.Conta.getSaldo() < this.ValorCobranca) {
-				return "Saldo insuficiente";
-			}else {
+				double saldoComChequeEspecial = this.Conta.getSaldo() + this.Conta.getChequeEspecial();
+
+				if (saldoComChequeEspecial < this.ValorCobranca) {
+					return "Saldo insuficiente";
+				} else {
+					double valorDebitadoSaldo = this.Conta.getSaldo();
+					double valorRestanteCobranca = this.ValorCobranca - valorDebitadoSaldo;
+					double valorRestanteChequeEspecial = this.Conta.getChequeEspecial() - valorRestanteCobranca;
+
+					this.Conta.setSaldo(0);
+					this.Conta.setChequeEspecial(valorRestanteChequeEspecial);
+				}
+
+			} else {
 				saldoAtualizado = this.Conta.getSaldo() - this.ValorCobranca;
 				this.Conta.setSaldo(saldoAtualizado);
 			}
-		}		
-		
+		}
+
 		return "Pagamento efetuado com sucesso. Saldo atual: " + this.Conta.getSaldo();
 	}
 }

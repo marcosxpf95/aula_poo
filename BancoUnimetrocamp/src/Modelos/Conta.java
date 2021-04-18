@@ -7,7 +7,7 @@ public class Conta {
 	private String Tipo;
 	private double Saldo;
 	private double ChequeEspecial;
-	
+
 	public Conta(Date dataCriacao, String tipo, double saldo, double chequeEspecial) {
 		DataCriacao = dataCriacao;
 		Tipo = tipo;
@@ -45,5 +45,5 @@ public class Conta {
 
 	public void setChequeEspecial(double chequeEspecial) {
 		ChequeEspecial = chequeEspecial;
-	}		
+	}
 }

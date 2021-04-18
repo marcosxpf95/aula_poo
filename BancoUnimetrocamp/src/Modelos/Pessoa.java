@@ -6,13 +6,13 @@ public class Pessoa {
 	private String Telefone;
 	private Endereco Endereco;
 	private String Email;
-	
-	public Pessoa(String nome, String cpf, String telefone, Endereco endereco, String email) {		
+
+	public Pessoa(String nome, String cpf, String telefone, Endereco endereco, String email) {
 		if (nome != "") {
 			Nome = nome;
 		}
 		if (CPF != "") {
-			CPF = cpf;	
+			CPF = cpf;
 		}
 		if (telefone != "") {
 			Telefone = telefone;
@@ -24,7 +24,7 @@ public class Pessoa {
 			Endereco = endereco;
 		}
 	}
-		
+
 	public Endereco getEndereco() {
 		return Endereco;
 	}
@@ -36,24 +36,31 @@ public class Pessoa {
 	public String getNome() {
 		return Nome;
 	}
-	public void setNome(String nome) {		
-		Nome = nome;				
+
+	public void setNome(String nome) {
+		Nome = nome;
 	}
+
 	public String getCPF() {
 		return CPF;
 	}
+
 	public void setCPF(String cPF) {
 		CPF = cPF;
 	}
+
 	public String getTelefone() {
 		return Telefone;
 	}
+
 	public void setTelefone(String telefone) {
 		Telefone = telefone;
 	}
+
 	public String getEmail() {
 		return Email;
 	}
+
 	public void setEmail(String email) {
 		Email = email;
 	}

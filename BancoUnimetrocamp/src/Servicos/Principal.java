@@ -1,4 +1,5 @@
 package Servicos;
+
 import java.util.Date;
 import java.util.Scanner;
 import Modelos.Cartao;
@@ -9,62 +10,76 @@ import Modelos.Pagamento;
 import Storage.ClienteStorage;
 
 public class Principal {
-	public static void main(String[] args) {			
+	public static void main(String[] args) {
 		ClienteStorage clienteStorage = new ClienteStorage();
 		Cliente cliente = clienteStorage.getClienteStoraged();
 		Conta conta = null;
 		Cartao cartao = null;
 		Pagamento pagamento = null;
-		
+
 		Scanner leitor = new Scanner(System.in);
-		
-		String opcao; 	
-		
-		do {			
+
+		String opcao;
+
+		do {
 			DefinirOpcoesMenu();
 			opcao = leitor.next();
-			
-			switch(opcao) {
-				case "1":{
-					if (cliente == null){
-						conta = CadastrarConta(leitor);
-						cartao = CadastrarCartao(leitor);
-						cliente = CadastrarCliente(leitor, conta, cartao);
-					}
-					break;
+
+			switch (opcao) {
+			case "1": {
+				if (cliente == null) {
+					conta = CadastrarConta(leitor);
+					cartao = CadastrarCartao(leitor);
+					cliente = CadastrarCliente(leitor, conta, cartao);
+				} else {
+					System.out.println("Cliente jï¿½ cadastrado:\n");
+					System.out.println("Nome:" + cliente.getNome());
+					System.out.println("CPF:" + cliente.getCPF() + "\n");
+					System.out.println("Saldo: " + cliente.getConta().getSaldo());
+					System.out.println("Cheque especial: " + cliente.getConta().getChequeEspecial());
 				}
-				case "2":{
-					pagamento = CadastrarPagamento(leitor, cliente.getConta());
-					System.out.println(pagamento.efetuarPagamento());
-					break;
-				}
+				break;
 			}
-								
-		} while(!opcao.equals("0"));
-		
+			case "2": {
+				pagamento = CadastrarPagamento(leitor, cliente.getConta());
+				System.out.println(pagamento.efetuarPagamento());
+				break;
+			}
+			case "3": {
+				break;
+			}
+			default: {
+				System.out.println("Opï¿½ï¿½o invï¿½lida!");
+				break;
+			}
+			}
+
+		} while (!opcao.equals("0"));
+
 		System.out.println("Programa finalizado com sucesso.");
 		leitor.close();
-		
+
 	}
 
 	public static void DefinirOpcoesMenu() {
-		System.out.println("------");
-		System.out.println("Selecione a opção que deseja:\n");
-		System.out.println("1-Definir Dados Do cliente");
+		System.out.println("------MENU-----");
+		System.out.println("Selecione a opï¿½ï¿½o que deseja:\n");
+		System.out.println("1-Cadastrar Dados Do cliente");
 		System.out.println("2-Efetuar pagamento");
-		System.out.println("0-Sair");	
+		// System.out.println("3-Consultar histï¿½rico");
+		System.out.println("0-Sair");
 	}
-	
-	public static Cliente CadastrarCliente(Scanner leitor, Conta conta, Cartao cartao) {				
-		
+
+	public static Cliente CadastrarCliente(Scanner leitor, Conta conta, Cartao cartao) {
+
 		System.out.println("Nome do cliente: ");
 		String nome = leitor.next();
 		System.out.println("CPF do cliente: ");
 		String cpf = leitor.next();
 		System.out.println("Telefone cliente: ");
 		String telefone = leitor.next();
-		System.out.println("Endereço cliente: ");
-		System.out.println("País:");
+		System.out.println("Endereï¿½o cliente: ");
+		System.out.println("Paï¿½s:");
 		String pais = leitor.next();
 		System.out.println("Estado:");
 		String estado = leitor.next();
@@ -74,7 +89,7 @@ public class Principal {
 		String bairro = leitor.next();
 		System.out.println("Rua:");
 		String rua = leitor.next();
-		System.out.println("Número:");
+		System.out.println("Nï¿½mero:");
 		int numero = leitor.nextInt();
 		System.out.println("Cep:");
 		String cep = leitor.next();
@@ -82,61 +97,58 @@ public class Principal {
 		String email = leitor.next();
 		System.out.println("Agencia: ");
 		int agencia = leitor.nextInt();
-		
-		
+
 		Endereco endereco = new Endereco(pais, estado, cidade, bairro, rua, numero, cep);
-		
+
 		Cliente cliente = new Cliente(nome, cpf, telefone, endereco, email, agencia, conta, cartao);
-		
-		
+
 		if (cliente != null) {
 			ClienteStorage clienteStorage = new ClienteStorage();
 			clienteStorage.Gravar(cliente);
 			clienteStorage.Ler();
 		}
-		return cliente; 
+		return cliente;
 	}
-	
-	public static Conta CadastrarConta(Scanner leitor) {		
-		
-		System.out.println("Tipo Conta: ");	
+
+	public static Conta CadastrarConta(Scanner leitor) {
+
+		System.out.println("Tipo Conta: ");
 		String tipoConta = leitor.next();
 		System.out.println("Saldo: ");
 		double saldo = leitor.nextDouble();
 		System.out.println("Cheque especial: ");
-		double chequeEspecial = leitor.nextDouble();		
-		Date date = new Date(System.currentTimeMillis());		
-		
+		double chequeEspecial = leitor.nextDouble();
+		Date date = new Date(System.currentTimeMillis());
+
 		Conta conta = new Conta(date, tipoConta, saldo, chequeEspecial);
-				
-		
+
 		return conta;
 	}
-	
-	public static Cartao CadastrarCartao(Scanner leitor) {		
-		System.out.println("Número Cartão");
+
+	public static Cartao CadastrarCartao(Scanner leitor) {
+		System.out.println("Nï¿½mero Cartï¿½o");
 		String numeroCartao = leitor.next();
 		System.out.println("CDV");
 		int cdv = leitor.nextInt();
-		System.out.println("Limite Cartão:");
+		System.out.println("Limite Cartï¿½o:");
 		double LimiteCartao = leitor.nextDouble();
-		
-		Cartao cartao = new Cartao(numeroCartao, cdv, LimiteCartao);					
-		
+
+		Cartao cartao = new Cartao(numeroCartao, cdv, LimiteCartao);
+
 		return cartao;
 	}
-	
+
 	public static Pagamento CadastrarPagamento(Scanner leitor, Conta conta) {
-		
-		System.out.println("Valor Cobrança");
+
+		System.out.println("Valor Cobranï¿½a");
 		double valorCobranca = leitor.nextDouble();
 		Date dataPagamento = new Date(System.currentTimeMillis());
 		Date dataVencimento = new Date(System.currentTimeMillis());
 		System.out.println("Taxa");
 		double taxa = leitor.nextDouble();
-		
+
 		Pagamento pagamento = new Pagamento(valorCobranca, conta, dataPagamento, dataVencimento, taxa);
-		
+
 		return pagamento;
-	} 
+	}
 }

@@ -7,11 +7,11 @@ public class Cartao {
 	private int CDV;
 	private double Limite;
 	private List<String> Fatura;
-	
-	public Cartao(String numero, int cdv, double limite) {		
+
+	public Cartao(String numero, int cdv, double limite) {
 		Numero = numero;
 		CDV = cdv;
-		Limite = limite;		
+		Limite = limite;
 	}
 
 	public String getNumero() {

@@ -1,52 +1,45 @@
 package Modelos;
 
-
 public class Cliente extends Pessoa {
 	private int Agencia;
 	private Conta Conta;
-	private Cartao Cartao; 
+	private Cartao Cartao;
 
-	
-	public Cliente(String nome, String CPF, String telefone, Endereco endereco, String email, int agencia, Conta conta, Cartao cartao) {
+	public Cliente(String nome, String CPF, String telefone, Endereco endereco, String email, int agencia, Conta conta,
+			Cartao cartao) {
 		super(nome, CPF, telefone, endereco, email);
 		Agencia = agencia;
 		Conta = conta;
-		Cartao = cartao;				
+		Cartao = cartao;
 	}
-
 
 	public int getAgencia() {
 		return Agencia;
 	}
 
-
 	public void setAgencia(int agencia) {
 		Agencia = agencia;
 	}
-
 
 	public Conta getConta() {
 		return Conta;
 	}
 
-
 	public void setConta(Conta conta) {
 		Conta = conta;
 	}
-
 
 	public Cartao getCartoes() {
 		return Cartao;
 	}
 
-
 	public void setCartoes(Cartao cartoes) {
 		Cartao = cartoes;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Nome: "+ super.getNome()+ "CPF: " + super.getCPF() +"Telefone: " + super.getTelefone();
+		return "Nome: " + super.getNome() + "CPF: " + super.getCPF() + "Telefone: " + super.getTelefone();
 	}
-	
+
 }
